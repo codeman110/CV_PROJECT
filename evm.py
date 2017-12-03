@@ -47,8 +47,8 @@ def compute_downsampled_params(width,height,pyr_lvls):
 
 # Parameters
 
-file_raw = 'out_raw.mp4'    # video file path
-file_mask = 'out_mask.mp4'
+file_raw = 'data/out_raw.mp4'    # video file path
+file_mask = 'data/out_mask.mp4'
 
 # Reading video file
 reader1 = imageio.get_reader(file_raw,  'ffmpeg')
