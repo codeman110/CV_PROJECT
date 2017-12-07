@@ -1,3 +1,4 @@
+# INCOMPLETE
 # COMPUTER VISION PROJECT
 ## RETINAL BLOOD FLOW MAGNIFIATION USING EULERIAN VIDEO MAGNIFICATION
 The project presents the application of Eulerian Video Magnification on retinal video angiographic images.
