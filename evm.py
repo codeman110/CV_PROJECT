@@ -54,15 +54,17 @@ file_mask = 'data/out_mask.mp4'
 reader1 = imageio.get_reader(file_raw,  'ffmpeg')
 reader2 = imageio.get_reader(file_mask,  'ffmpeg')
 
-alpha = 5                 # amplification factor
-w_l = 0.5 #50/60.0              # lower_hertz (in Hz)
-w_h = 10 #60/60.0              # upper_hertz (in Hz)
-sampling_rate = 30         # sampling rate
-pyr_lvls = 4               # nmbr of pyramid levels
+alpha = 5               # amplification factor
+w_l = 0.5               # lower_hertz (in Hz)
+w_h = 10                # upper_hertz (in Hz)
+sampling_rate = 30      # sampling rate
+pyr_lvls = 4            # nmbr of pyramid levels
+
+# Video metadata
 n_frames = reader1.get_meta_data()['nframes']
-height = 578
-width = 524
-fps = 8
+width = reader1.get_meta_data()['size'][0]
+height = reader1.get_meta_data()['size'][1]
+fps = reader1.get_meta_data()['fps']
 
 # Algorithm
 
@@ -78,22 +80,20 @@ stack = np.zeros((n_frames, height, width, 3), dtype='float')
 
 
 # Copying video data to 4D array
+# For FA videos
 for i,frame in enumerate(reader1):
     im_raw[i] = frame
-    
+# For mask videos
 for i,frame in enumerate(reader2):
     im_mas[i] = frame
 
+# Make a copy of raw data
 im_cp = im_raw.copy()
-im_cp[im_cp < 100] = 0
+# Discarding blue and green channels
 im_cp[:,:,:,1] = 0
 im_cp[:,:,:,2] = 0
 
-
-#imageio.imwrite('sample.png',a)
-#cv2.imshow('x',a)
-
-# Compute Gaussian blur stack
+# Compute Gaussian blur stack on raw videos
 gauss_stack = build_gdown_stack(im_cp, g_ht, g_wd, n_frames, pyr_lvls)
 
 # Temporal filtering
@@ -108,19 +108,21 @@ for i in range(0,n_frames):
 
 # Adding the original frames and filtered frames
 vid = np.add(im,stack)
-vid = im_cp + vid       # adding amplified image to original
+# Adding amplified image to original
+vid = im_cp + vid 
+
 vid[vid>255] = 255
 vid[vid<0] = 0
 vid = vid.astype(dtype='uint8')
 
-#vid = cv2.add(im_m,vid)
+# Discarding amplified background
+im1 = cv2.bitwise_or(vid,im_mas)    
 
+# Taking the background from raw images
+im2 = cv2.bitwise_or(im_raw,cv2.bitwise_not(im_mas))    
 
-im1 = cv2.bitwise_or(vid,im_mas)    # discarding amplified background
-
-im2 = cv2.bitwise_or(im_raw,cv2.bitwise_not(im_mas))    # taking the background from raw images
-
-im3 = cv2.bitwise_and(im1,im2)  # adding the foreground and the background
+# Adding the foreground and the background
+im3 = cv2.bitwise_and(im1,im2) 
 
 #Creating output video file
 writer = imageio.get_writer('op_final.mp4', fps=fps, macro_block_size=None)
