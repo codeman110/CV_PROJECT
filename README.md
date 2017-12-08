@@ -43,3 +43,5 @@ im2 = cv2.bitwise_or(im_raw,cv2.bitwise_not(im_mas))
 # Adding the foreground and the background
 im3 = cv2.bitwise_and(im1,im2)
 ```
+11. Save output video to file.
+## Flowchart
