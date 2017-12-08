@@ -1,4 +1,3 @@
-# INCOMPLETE
 # COMPUTER VISION PROJECT
 ## RETINAL BLOOD FLOW MAGNIFIATION USING EULERIAN VIDEO MAGNIFICATION
 The project presents the application of Eulerian Video Magnification on retinal video angiographic images.
@@ -46,3 +45,6 @@ im3 = cv2.bitwise_and(im1,im2)
 11. Save output video to file.
 ## Flowchart
 <img src="misc/flow1.png">
+## References
+1. Wu, H. Y., Rubinstein, M., Shih, E., Guttag, J., Durand, F., & Freeman, W. (2012). Eulerian video magnification for revealing subtle changes in the world.
+2. http://people.csail.mit.edu/mrub/vidmag/
