@@ -19,13 +19,16 @@ alpha = 5               # amplification factor
 w_l = 0.5               # lower_hertz (in Hz)
 w_h = 10                # upper_hertz (in Hz)
 sampling_rate = 30      # sampling rate
-pyr_lvls = 4            # nmbr of pyramid levels
+pyr_lvls = 4            # number of pyramid levels
 ```
-3. Extract metadata
+3. Extract the following video metadata.
 ```python
 n_frames = reader1.get_meta_data()['nframes']
 width = reader1.get_meta_data()['size'][0]
 height = reader1.get_meta_data()['size'][1]
 fps = reader1.get_meta_data()['fps']
 ```
-4. 
+4. Discard blue and green channels from the raw video. This is done so that we can mark the amplification of the blood flow in vessels using red color.
+5. Spatial decomposition using Gaussian pyramid.
+6. Temporal processing on each spatial band by applying bandpass filter to extract frequency band of interest.
+7. Amplify the output of previous step by a factor \alpha.
