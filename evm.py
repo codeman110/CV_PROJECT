@@ -1,12 +1,15 @@
-########################################
+######################################
 # Final algorithm for retinal videos #
-########################################
+######################################
 
 import imageio
 import numpy as np
 import cv2
 
-# Functions
+#############
+# Functions #
+#############
+
 def build_gdown_stack(vid, g_ht, g_wd, n_frames, level):
     result = np.zeros((n_frames,g_ht,g_wd,3),dtype='float')
     for i in range(0,n_frames):
@@ -45,8 +48,7 @@ def compute_downsampled_params(width,height,pyr_lvls):
         g_wd = round(g_wd/2)
     return int(g_ht),int(g_wd)
 
-# Parameters
-
+# Data
 file_raw = 'data/out_raw.mp4'    # video file path
 file_mask = 'data/out_mask.mp4'
 
@@ -54,6 +56,7 @@ file_mask = 'data/out_mask.mp4'
 reader1 = imageio.get_reader(file_raw,  'ffmpeg')
 reader2 = imageio.get_reader(file_mask,  'ffmpeg')
 
+# Parameters
 alpha = 5               # amplification factor
 w_l = 0.5               # lower_hertz (in Hz)
 w_h = 10                # upper_hertz (in Hz)
@@ -66,7 +69,9 @@ width = reader1.get_meta_data()['size'][0]
 height = reader1.get_meta_data()['size'][1]
 fps = reader1.get_meta_data()['fps']
 
-# Algorithm
+#############
+# Algorithm #
+#############
 
 # Computing height and width of downsampled frames
 g_ht,g_wd = compute_downsampled_params(width,height,pyr_lvls)
