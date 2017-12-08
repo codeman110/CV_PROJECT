@@ -15,10 +15,17 @@ The project presents the application of Eulerian Video Magnification on retinal 
 1. Read raw and mask videos.
 2. Set the following parameters.
 ```python
-# Parameters
 alpha = 5               # amplification factor
 w_l = 0.5               # lower_hertz (in Hz)
 w_h = 10                # upper_hertz (in Hz)
 sampling_rate = 30      # sampling rate
 pyr_lvls = 4            # nmbr of pyramid levels
 ```
+3. Extract metadata
+```python
+n_frames = reader1.get_meta_data()['nframes']
+width = reader1.get_meta_data()['size'][0]
+height = reader1.get_meta_data()['size'][1]
+fps = reader1.get_meta_data()['fps']
+```
+4. 
