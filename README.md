@@ -45,3 +45,4 @@ im3 = cv2.bitwise_and(im1,im2)
 ```
 11. Save output video to file.
 ## Flowchart
+<img src="misc/flow1.png">
