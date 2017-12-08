@@ -10,7 +10,7 @@ import cv2
 def build_gdown_stack(vid, g_ht, g_wd, n_frames, level):
     result = np.zeros((n_frames,g_ht,g_wd,3),dtype='float')
     for i in range(0,n_frames):
-        # generate Gaussian pyramid
+        # Generate Gaussian pyramid
         G = vid[i].copy()
         for j in xrange(level):
             G = cv2.pyrDown(G)
@@ -29,8 +29,8 @@ def ideal_bandpassing(ip, wl, wh, g_ht, g_wd, n_frames, samplingRate):
     new_mask = np.tile(mask[:,None,None,None],Dimensions)
 
     # Alternative approach
-#    new_mask = np.zeros((n_frames,g_ht,g_wd,3))
-#    new_mask[9,:,:,:] = 1
+    #    new_mask = np.zeros((n_frames,g_ht,g_wd,3))
+    #    new_mask[9,:,:,:] = 1
     
     F = np.fft.fft(ip,axis=0) 
     F = np.multiply(F,new_mask)    
