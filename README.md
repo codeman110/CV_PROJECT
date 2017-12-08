@@ -31,4 +31,4 @@ fps = reader1.get_meta_data()['fps']
 4. Discard blue and green channels from the raw video. This is done so that we can mark the amplification of the blood flow in vessels using red color.
 5. Spatial decomposition using Gaussian pyramid.
 6. Temporal processing on each spatial band by applying bandpass filter to extract frequency band of interest.
-7. Amplify the output of previous step by a factor \alpha.
+7. Amplify the output of previous step by a factor ```\alpha```.
